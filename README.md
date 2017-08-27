@@ -2,7 +2,7 @@
 
 This in an angular2/4 module to be used to add a top bar within DHIS apps.
 
-#Installation
+# Installation
 
 This component assumes that the angular app is created using [angular cli](https://cli.angular.io/).
 
@@ -20,7 +20,7 @@ In order to fill in the submodule’s path with the files from the external repo
 
 For more about git submodules click [here](https://chrisjean.com/git-submodules-adding-using-removing-and-updating/)
 
-#Using menu module
+# Using menu module
 
 In order to use menu module, import the module in your app.module.ts file as follows;
 
