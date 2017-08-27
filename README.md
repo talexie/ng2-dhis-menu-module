@@ -46,3 +46,15 @@ In your app component, add menu component as follows;
 
 DHIS2 menu is using fixed position so to be able to see your items you have to add the margin-top properties in your root component
 
+# Update menu Submodule
+
+If you want to pull new changes form menu repository, do as follows
+
+1. Change to menu module directory
+
+`cd src/app/menu`
+
+2. Pull new changes from the repository for the stable branch (master)
+
+`git pull origin master`
+
