@@ -110,7 +110,7 @@ export class MenuComponent implements OnInit {
 
   widdenSearch(e) {
     e.stopPropagation();
-    this.searchWidth = 60;
+    this.searchWidth = 67;
     this.showApps = !this.showApps;
   }
 
