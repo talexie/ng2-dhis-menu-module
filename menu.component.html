@@ -45,7 +45,7 @@
       }"
       (mouseleave)="reduceSearch($event)"
     >
-      <div id="menu-inner-list-block">
+      <div *ngIf="(apps | filter: filteredApp).length !== 0" id="menu-inner-list-block">
         <a
           *ngFor="let app of  apps | filter: filteredApp"
           [href]="app.defaultAction"
@@ -53,6 +53,9 @@
           <img  alt="" [src]="app.icon">
           <div class="app-menu-name">{{app.displayName}}</div>
         </a>
+      </div>
+      <div id="menu-inner-list-block-no-match" *ngIf="(apps | filter: filteredApp).length == 0">
+        <p>No match found</p>
       </div>
       <div id="menu-app-management-block">
         <a

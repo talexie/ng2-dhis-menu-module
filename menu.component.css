@@ -112,6 +112,24 @@
   height: 350px;
   padding: 15px;
 }
+
+
+#menu-inner-list-block-no-match {
+  display: flex;
+  overflow: auto;
+  flex-wrap: wrap;
+  height: 350px;
+  font-size: 26px;
+  color: #cccccc;
+}
+
+#menu-inner-list-block-no-match p{
+  padding-top: 100px;
+  width: 100%!important;
+  text-align: center;
+}
+
+
 #menu-app-management-block {
   text-align: center;
   position: relative;
