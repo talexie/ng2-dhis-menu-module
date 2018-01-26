@@ -1,4 +1,3 @@
-import { FilterByNamePipe } from './pipes/filter-by-name.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as fromServices from './services';

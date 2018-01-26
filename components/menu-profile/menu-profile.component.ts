@@ -56,7 +56,11 @@ export class MenuProfileComponent implements OnInit {
     this.showProfile = true;
   }
 
-  hideMenuProfile() {
+  hideMenuProfile(e?) {
+    if (e) {
+      e.stopPropagation();
+    }
+
     this.showProfile = false;
   }
 }

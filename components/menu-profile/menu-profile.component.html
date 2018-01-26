@@ -4,7 +4,7 @@
             {{currentUser?.AbbreviatedName}}
         </a>
     </div>
-    <div id="profile-menu-list-block" *ngIf="showProfile && !loadingUser">
+    <div id="profile-menu-list-block" *ngIf="showProfile && !loadingUser" (mouseleave)="hideMenuProfile($event)">
         <div id="profile-menus-list">
             <a *ngFor="let profileMenu of profileMenus" [href]="rootUrl + profileMenu.defaultAction" class="profile-menu-btn">
                 <div>
