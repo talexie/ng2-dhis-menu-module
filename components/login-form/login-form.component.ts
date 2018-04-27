@@ -5,6 +5,8 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-form',
@@ -14,6 +16,8 @@ import { Component, OnInit } from '@angular/core';
 export class LoginFormComponent implements OnInit {
   credentials: any;
   loginError: string;
+  loggingIn: boolean;
+
   constructor(private httpClient: HttpClient) {
     this.credentials = {
       username: undefined,
@@ -22,38 +26,38 @@ export class LoginFormComponent implements OnInit {
     this.loginError = '';
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   onSubmit(e) {
     e.stopPropagation();
+    this.loggingIn = true;
     this.loginError = '';
 
     const headers = new HttpHeaders().set(
       'Content-Type',
       'application/x-www-form-urlencoded'
     );
-    this.httpClient
-      .post(
-        '../../../dhis-web-commons-security/login.action',
-        'j_username=' +
-          this.credentials.username +
-          '&j_password=' +
-          this.credentials.password,
-        {
-          headers
+    this.httpClient.post(
+      '../../../dhis-web-commons-security/login.action',
+      'j_username=' +
+      this.credentials.username +
+      '&j_password=' +
+      this.credentials.password,
+      {
+        headers
+      }
+    ).pipe(catchError(this._handleError)).subscribe(
+      () => {
+        this.loggingIn = false;
+      },
+      (error) => {
+        this.loggingIn = false;
+        if (error.status === 200 && error.url.indexOf('login') !== -1) {
+          this.loginError = 'Incorrect username or password';
         }
-      )
-      .subscribe(
-        () => {
-          console.log('success');
-        },
-        (error: HttpErrorResponse) => {
-          const newError = this._handleError(error);
-          if (newError.status >= 400) {
-            this.loginError = 'incorrect username or password';
-          }
-        }
-      );
+      }
+    );
   }
 
   private _handleError(err: HttpErrorResponse) {
@@ -64,19 +68,19 @@ export class LoginFormComponent implements OnInit {
         message: err.error,
         status: err.status,
         statusText: err.statusText,
-        url: err.url || ''
+        url: err.url
       };
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       error = {
-        message: err.error instanceof Object ? err.error.message : err.error,
+        message: err.error instanceof Object ? err.error.message : err.error ? err.error : err.message,
         status: err.status,
         statusText: err.statusText,
-        url: err.url || ''
+        url: err.url
       };
     }
 
-    return error;
+    return new ErrorObservable(error);
   }
 }

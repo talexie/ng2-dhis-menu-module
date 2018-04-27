@@ -8,6 +8,7 @@ import {
   transition,
   animate
 } from '@angular/animations';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-menu',
@@ -42,52 +43,58 @@ export class MenuComponent implements OnInit {
   backgroundColor: string;
   menuLoading: boolean;
   menuLoadingFail: boolean;
-  loggedIn: boolean;
+  loggedIn$: Observable<boolean>;
   online: boolean;
   menuNotification: string;
   wasOffline: boolean;
-  constructor(
-    private menuService: fromServices.MenuService,
-    private systemStatusService: fromServices.SystemStateService
-  ) {
+  showSidebar: boolean;
+
+  constructor(private menuService: fromServices.MenuService,
+    private systemStatusService: fromServices.SystemStateService) {
     this.rootUrl = '../../../';
     this.menuLoading = true;
     this.menuLoadingFail = false;
-    this.loggedIn = true;
+    this.loggedIn$ = this.systemStatusService.getLoginStatus();
     this.online = false;
     this.menuNotification = '';
     this.wasOffline = true;
     this.backgroundColor = '#ECECEC';
+    this.showSidebar = false;
   }
 
   ngOnInit() {
-    this.getSystemSettings();
-    /**
-     * Check system status
-     */
-    this.systemStatusService
-      .checkLoginStatus()
-      .subscribe((loggingStatus: any) => {
-        this.loggedIn = loggingStatus.loggedIn;
-        this.online = loggingStatus.online;
-        if (this.online) {
-          if (this.wasOffline) {
-            this.menuNotification = 'You are online';
-            this.wasOffline = false;
+    this.systemStatusService.checkOnlineStatus().subscribe((onlineStatus) => {
+      this.online = onlineStatus;
+      if (this.online && this.wasOffline) {
+        this.menuNotification = 'You are online';
+        this.wasOffline = false;
 
-            if (this.menuLoadingFail) {
-              this.getSystemSettings();
-            }
+        /**
+         * Hide notification status after sometimes
+         */
+        setTimeout(() => {
+          this.menuNotification = '';
+        }, 3000);
 
-            setTimeout(() => {
-              this.menuNotification = '';
-            }, 8000);
-          }
-        } else {
-          this.menuNotification = 'You are offline';
-          this.wasOffline = true;
+        /**
+         * Load system settings if failed
+         */
+        if (this.menuLoadingFail) {
+          this.menuLoading = true;
+          this.getSystemSettings();
         }
-      });
+
+      } else if (!this.online) {
+        this.menuNotification = 'You are offline';
+        this.wasOffline = true;
+      }
+    });
+    this.getSystemSettings();
+  }
+
+  toggleSideBar(e) {
+    e.stopPropagation();
+    this.showSidebar = !this.showSidebar;
   }
 
   getSystemSettings() {
@@ -102,8 +109,8 @@ export class MenuComponent implements OnInit {
           const colorName = settings.hasOwnProperty('currentStyle')
             ? settings['currentStyle'].split('/')[0]
             : settings.hasOwnProperty('keyStyle')
-              ? settings['keyStyle'].split('/')[0]
-              : 'blue';
+                              ? settings['keyStyle'].split('/')[0]
+                              : 'blue';
           this.backgroundColor =
             fromConstants.MENU_BACKGROUND_COLORS[colorName];
         }
