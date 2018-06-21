@@ -5,13 +5,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterByNamePipe implements PipeTransform {
   transform(list: any[], name: any): any {
-    const splittedName = name ? name.split(/[\.\-_]/) : [];
-    console.log(splittedName)
-    return splittedName.length > 0
+    const splitedName = name ? name.split(/[\.\-_]/) : [];
+    return splitedName.length > 0
       ? list.filter((item: any) =>
-        splittedName.some(
+        splitedName.some(
           (nameString: string) =>
-            item.name.toLowerCase().indexOf(nameString.toLowerCase()) !== -1
+            item.displayName.toLowerCase().indexOf(nameString.toLowerCase()) !== -1
         )
       )
       : list;
