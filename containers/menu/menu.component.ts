@@ -48,6 +48,7 @@ export class MenuComponent implements OnInit {
   menuNotification: string;
   wasOffline: boolean;
   showSidebar: boolean;
+  contextPath: string;
 
   constructor(private menuService: fromServices.MenuService,
     private systemStatusService: fromServices.SystemStateService) {
@@ -113,6 +114,8 @@ export class MenuComponent implements OnInit {
                               : 'blue';
           this.backgroundColor =
             fromConstants.MENU_BACKGROUND_COLORS[colorName];
+
+          this.contextPath = settings.contextPath ? settings.contextPath + '/' : '';
         }
         this.menuLoading = false;
         this.menuLoadingFail = false;

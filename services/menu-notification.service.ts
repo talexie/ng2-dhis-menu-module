@@ -10,6 +10,6 @@ export class MenuNotificationService {
   }
 
   loadNotification(rootUrl: string): Observable<any> {
-    return this.httpClient.get(`${rootUrl}/api/me/dashboard.json`).pipe(catchError(() => of(null)));
+    return this.httpClient.get(`${rootUrl}api/me/dashboard.json`).pipe(catchError(() => of(null)));
   }
 }

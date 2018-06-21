@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as fromConstants from '../constants';
-import { BehaviorSubject } from 'rxjs/index';
+import { BehaviorSubject, forkJoin } from 'rxjs/index';
 
 @Injectable()
 export class MenuService {
@@ -11,9 +11,9 @@ export class MenuService {
 
   getSystemSettings(rootUrl: string): Observable<any> {
     return Observable.create(observer => {
-      this.httpClient.get(rootUrl + 'api/systemSettings.json').subscribe(
-        (settings: any) => {
-          observer.next(settings);
+      forkJoin(this.httpClient.get(rootUrl + 'api/systemSettings.json'), this.httpClient.get(rootUrl + 'api/system/info.json')).subscribe(
+        (settings: any[]) => {
+          observer.next({...settings[0], ...settings[1]});
           observer.complete();
         },
         () => observer.error(null)
