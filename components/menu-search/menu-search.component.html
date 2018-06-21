@@ -9,6 +9,7 @@
   <div>
     <input type="text" id="menu-search-input" placeholder="Search Apps" [attr.size]="searchWidth"
            (focus)="widdenSearch($event)" [(ngModel)]="filteredApp" (ngModelChange)="updateMenuModules()"/>
+    <span class="underline"></span>
   </div>
   <div id="menu-toggle-link">
     <a (click)="toggleSearch($event)">

@@ -24,10 +24,10 @@ import * as fromServices from '../../services';
         style({
           transform: 'translateY(-100%)'
         }),
-        animate(500)
+        animate(300)
       ]),
       transition('* => void', [
-        animate(400),
+        animate(300),
         style({
           transform: 'translateY(-100%)'
         })
@@ -45,7 +45,7 @@ export class MenuSearchComponent implements OnInit {
   filteredApp: string;
   constructor(private menuService: fromServices.MenuService) {
     this.rootUrl = '../../../';
-    this.searchWidth = 30;
+    this.searchWidth = 47;
     this.showApps = false;
     this.apps = [];
     this.originalApps = [];
@@ -82,7 +82,6 @@ export class MenuSearchComponent implements OnInit {
       e.stopPropagation();
     }
     document.getElementById('menu-search-input').focus();
-    this.searchWidth = 57;
     this.showApps = true;
   }
 
@@ -91,7 +90,6 @@ export class MenuSearchComponent implements OnInit {
       e.stopPropagation();
     }
     document.getElementById('menu-search-input').blur();
-    this.searchWidth = 30;
     this.showApps = false;
   }
 

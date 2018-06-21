@@ -14,7 +14,8 @@
   -o-transition: all 0.2s ease-in-out;
   -ms-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
-  padding: 10px 0px 5px 0px;
+  padding: 10px 0 5px 5px;
+  font-size: 15px;
 }
 
 #menu-search-input::-webkit-input-placeholder {
@@ -39,7 +40,22 @@
 
 #menu-search-input:focus {
   outline: none;
-  border-bottom: solid 2px #ffffff;
+}
+
+#menu-search-input:focus+.underline {
+  transform: scale(1);
+}
+
+.underline {
+  background-color: #ffffff;
+  position: absolute;
+  height: 2px;
+  width: 390px;
+  bottom: 7px;
+  -webkit-transform: scale(0, 1);
+  transform: scale(0, 1);
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
 }
 
 #menu-toggle-link {
@@ -60,8 +76,7 @@
 #menu-list-block {
   position: absolute;
   top: 49px;
-  max-width: 650px;
-  width: 100%;
+  width: 550px;
   height: 410px;
   right: 10px;
   z-index: -1000;
@@ -211,4 +226,5 @@
 .menu-search-icon {
   display: flex;
   align-items: center;
+  margin-right: 7px;
 }
