@@ -3,12 +3,14 @@ import { MenuSearchComponent } from './menu-search/menu-search.component';
 import { MenuProfileComponent } from './menu-profile/menu-profile.component';
 import { MenuLoaderComponent } from './menu-loader/menu-loader.component';
 import {MenuSideBarComponent} from './menu-side-bar/menu-side-bar.component';
+import { MenuNotificationComponent } from './menu-notification/menu-notification.component';
 export const components: any[] = [
   MenuLoaderComponent,
   MenuProfileComponent,
   MenuSearchComponent,
   LoginFormComponent,
-  MenuSideBarComponent
+  MenuSideBarComponent,
+  MenuNotificationComponent
 ];
 
 export * from './menu-search/menu-search.component';

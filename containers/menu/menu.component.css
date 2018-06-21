@@ -153,6 +153,13 @@
 
 }
 
+.menu-notification-block {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-right: 30px;
+}
+
 @media (min-width: 1010px) {
   #sidebar-menu-nav {
     display: none !important;

@@ -2,9 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as fromConstants from '../constants';
+import { BehaviorSubject } from 'rxjs/index';
 
 @Injectable()
 export class MenuService {
+  private _menuModules$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   constructor(private httpClient: HttpClient) {}
 
   getSystemSettings(rootUrl: string): Observable<any> {
@@ -25,8 +27,10 @@ export class MenuService {
         .get(rootUrl + 'dhis-web-commons/menu/getModules.action')
         .subscribe(
           (menuModuleResult: any) => {
+            const sanitizedMenu = this._sanitizeMenuItems(menuModuleResult.modules, rootUrl);
+            this._menuModules$.next(sanitizedMenu)
             observer.next(
-              this._sanitizeMenuItems(menuModuleResult.modules, rootUrl)
+              sanitizedMenu
             );
             observer.complete();
           },
@@ -36,6 +40,10 @@ export class MenuService {
           }
         );
     });
+  }
+
+  getSanitizedMenus() {
+    return this._menuModules$.asObservable();
   }
 
   getUserInfo(rootUrl: string): Observable<any> {
