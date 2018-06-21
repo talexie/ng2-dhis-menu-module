@@ -8,7 +8,12 @@ import * as fromConstants from '../../constants';
   styleUrls: ['./menu-profile.component.css']
 })
 export class MenuProfileComponent implements OnInit {
-  @Input() rootUrl: string;
+  @Input()
+  rootUrl: string;
+
+  @Input()
+  backgroundColor: string;
+
   showProfile: boolean;
   currentUser: any;
   loadingUser: boolean;
