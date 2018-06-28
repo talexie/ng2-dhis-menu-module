@@ -12,6 +12,9 @@ export class MenuProfileComponent implements OnInit {
   rootUrl: string;
 
   @Input()
+  contextPath: string;
+
+  @Input()
   backgroundColor: string;
 
   showProfile: boolean;
@@ -20,7 +23,7 @@ export class MenuProfileComponent implements OnInit {
   profileMenus: any[];
   constructor(private menuService: fromServices.MenuService) {
     this.showProfile = false;
-    this.rootUrl = '../../../';
+    this.rootUrl = this.contextPath = '../../../';
     this.loadingUser = true;
     this.profileMenus = fromConstants.PROFILE_MENUS;
   }

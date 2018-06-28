@@ -8,7 +8,7 @@
         <div id="profile-menus-list">
             <a *ngFor="let profileMenu of profileMenus" [href]="rootUrl + profileMenu.defaultAction" class="profile-menu-btn">
                 <div>
-                    <img alt="" [src]="rootUrl + profileMenu.icon">
+                    <img alt="" [src]="contextPath + profileMenu.icon">
                     <div class="profile-menu-name">{{profileMenu?.name}}</div>
                 </div>
             </a>

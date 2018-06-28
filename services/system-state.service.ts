@@ -1,10 +1,9 @@
+
+import {timer as observableTimer,  Observable ,  of ,  BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/timer';
+
 import { switchMap, tap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class SystemStateService {
@@ -15,7 +14,7 @@ export class SystemStateService {
   }
 
   checkOnlineStatus() {
-    return Observable.timer(1000, 30000).pipe(switchMap(() => of(navigator.onLine)), tap((onlineStatus) => {
+    return observableTimer(1000, 30000).pipe(switchMap(() => of(navigator.onLine)), tap((onlineStatus) => {
       this._checkLoginStatus(onlineStatus);
     }));
   }

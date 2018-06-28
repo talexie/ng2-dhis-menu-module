@@ -49,7 +49,7 @@
     <!--menu right block-->
     <div id="menu-right-block">
       <div class="menu-notification-block">
-        <app-menu-notification [rootUrl]="contextPath !== '' ? contextPath : rootUrl"></app-menu-notification>
+        <app-menu-notification [rootUrl]="rootUrl"></app-menu-notification>
       </div>
       <!--menu search block-->
       <div id="menu-search-block">
@@ -59,7 +59,7 @@
 
       <!--menu profile block-->
       <div id="menu-profile-block">
-        <app-menu-profile [rootUrl]="contextPath !== '' ? contextPath : rootUrl" [backgroundColor]="backgroundColor"></app-menu-profile>
+        <app-menu-profile [rootUrl]="rootUrl" [contextPath]="contextPath" [backgroundColor]="backgroundColor"></app-menu-profile>
       </div>
       <!--end of menu profile block-->
 
