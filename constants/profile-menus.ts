@@ -23,6 +23,7 @@ export const PROFILE_MENUS = [
   {
     name: 'Help',
     namespace: 'dhis-web-commons-about',
+    isExternal: true,
     defaultAction:
       'https://dhis2.github.io/dhis2-docs/master/en/user/html/dhis2_user_manual_en.html',
     icon: 'icons/function-account.png',
